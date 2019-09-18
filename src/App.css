@@ -20,6 +20,7 @@
 
 body {
     font-family: 'Montserrat';font-size: 14px;
+    background-color: #DBDFDC;
 }
 
 .button {
@@ -40,6 +41,10 @@ body {
 .button:hover {
   background-color: #4CAF50;
   color: white;
+}
+
+.titleDisplay {
+  color: #00d8ff;
 }
 
 @keyframes App-logo-spin {
