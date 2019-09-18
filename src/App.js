@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from './logo.svg';
 import './App.css';
 import axios from 'axios'
+let port = "http://127.0.0.1:5000/"
 
 class App extends Component {
   constructor(props) {
@@ -21,7 +22,7 @@ class App extends Component {
     let gameButton = [];
     let choicesList = [];
     axios({
-      baseURL: 'http://127.0.0.1:5000/choices',
+      baseURL: port + 'choices',
       method: 'GET',
       headers: {
         'Content-Type': 'application/json; charset-UTF8'
@@ -38,9 +39,14 @@ class App extends Component {
     .catch(err => console.log("Fetch Error: ", err));
   }
 
+  resetScoreBoard() {
+    this.setState({scoreBoard: []});
+    this.setState({gameCount: 1});
+  }
+
   play(numberInput, stringInput) {
     axios({
-      baseURL: 'http://127.0.0.1:5000/play',
+      baseURL: port + 'play',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json; charset-UTF8'
@@ -84,6 +90,7 @@ class App extends Component {
         <div id="Computer">{computerChoice}</div>
         <h3 className="titleDisplay">Result</h3>
         <div id="Result">{result}</div>
+        <button onClick={() => this.resetScoreBoard()}>Reset Score Board</button>
         <h3 className="scoreBoard">Score Board</h3>
         <div id="ScoreBoard">{scoreBoard}</div>
       </div>
