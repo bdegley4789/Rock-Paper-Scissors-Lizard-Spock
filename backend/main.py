@@ -2,6 +2,7 @@ from flask import Flask, flash, redirect, render_template, request, session, abo
 import random
 import json
 
+# I got the basic set up for this flask app here: https://pythonspot.com/flask-web-app-with-python/
 app = Flask(__name__)
 options = [
     {"id":1,"name":"rock"},
@@ -11,25 +12,44 @@ options = [
     {"id":5,"name":"spock"}
     ]
 
-# I got the basic set up for this flask app here: https://pythonspot.com/flask-web-app-with-python/
+# Parameters: none
+# Return: String message for anyone using my app
+# Description: Initial message if anyone desides to hit my main endpoint
+# Creator: Bryce Egley
 @app.route("/")
 def index():
-    return "Welcome to my App!"
+    return "Welcome to Rock Paper Scissors Lizard Spock!"
 
+# Parameters: none
+# Return: int
+# Description: generate random number 1-100 exclusive
+# Creator: Bryce Egley
 @app.route("/random")
 def random_number():
     return {
         "random_number": random.randint(1,100)
     }
 
+# Parameters: none
+# Return: string of json
+# Description: provide list of choices
+# Creator: Bryce Egley
 @app.route("/choices")
 def choices():
     return json.dumps(options)
 
+# Parameters: none
+# Return: json
+# Description: return json object of random choice
+# Creator: Bryce Egley
 @app.route("/choice")
 def choice():
     return options[random.randint(1,len(options)-1)]
 
+# Parameters: player_choice - int, computer_choice - int
+# Return: string
+# Description: Return result of game
+# Creator: Bryce Egley
 def game(player_choice, computer_choice):
     if (player_choice == computer_choice):
         return 'tie'
@@ -46,7 +66,10 @@ def game(player_choice, computer_choice):
     else:
         return 'lose'
 
-
+# Parameters: none
+# Return: json
+# Description: play game of rock paper scissors lizard spock and return result to user
+# Creator: Bryce Egley
 @app.route("/play", methods = ['POST'])
 def play():
     player_choice = json.loads(request.data)["player"]
