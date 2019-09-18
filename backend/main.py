@@ -1,5 +1,6 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import random
+from werkzeug.exceptions import BadRequest
 import json
 from flask_cors import CORS
 
@@ -76,6 +77,8 @@ def game(player_choice, computer_choice):
 @app.route("/play", methods = ['POST'])
 def play():
     player_choice = json.loads(request.data)["player"]
+    if (player_choice < 1 or player_choice > 5):
+        raise BadRequest('Bad Request: Number Out of Range 1-5')
     computer_choice = random.randint(1,len(options)-1)
     return {
         "results": game(player_choice,computer_choice),
