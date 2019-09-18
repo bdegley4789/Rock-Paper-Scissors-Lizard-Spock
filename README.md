@@ -7,7 +7,8 @@ Play the game from big game theory Rock, Paper, Scissors, Lizard, Spock
 ```cd Rock-Paper-Scissors-Lizard-Spock/backend```  
 ```FLASK_APP=main.py```     
 
-**IMPORTANT**
+**IMPORTANT**  
+
 2. Paste the url it gives you in step 1 in Running on http://127.0.0.1:5000/. Into the port global variable on line 5 in src/App.js
 
 3. Open another terminal and cd into Rock-Paper-Scissors-Lizard-Spock directory aka root of this project and run npm install then npm start  
