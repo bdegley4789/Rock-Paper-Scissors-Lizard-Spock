@@ -12,6 +12,8 @@ class App extends Component {
             playerChoice: "",
             computerChoice: "",
             result: "",
+            scoreBoard: [],
+            gameCount: 1
         }
     }
 
@@ -26,12 +28,10 @@ class App extends Component {
       }
     })
     .then(({ data }) => {
-      console.log(data)
       for (let i = 0; i < data.length; i++) {
         choicesList.push({"id": data[i]["id"], "name": data[i]["name"]})
         gameButton.push(<button id={i} onClick={() => this.play(data[i]["id"], data[i]["name"])}>{data[i]["name"]}</button>);
      }
-     console.log(gameButton);
      this.setState({choicesList: choicesList})
      this.setState({listButtons:gameButton});
     })
@@ -39,8 +39,6 @@ class App extends Component {
   }
 
   play(numberInput, stringInput) {
-    console.log(numberInput);
-    console.log(stringInput);
     axios({
       baseURL: 'http://127.0.0.1:5000/play',
       method: 'POST',
@@ -52,16 +50,23 @@ class App extends Component {
       }
     })
     .then(({ data }) => {
-      console.log(data)
+      let result = "You " + data.results;
+      let scoreBoard = this.state.scoreBoard
+      scoreBoard.unshift(<div className="record">Game {this.state.gameCount}: {result}</div>);
+      if (scoreBoard.length > 10) {
+        scoreBoard.pop();
+      }
       this.setState({playerChoice:stringInput});
       this.setState({computerChoice:this.state.choicesList[data.computer-1]["name"]});
-      this.setState({result:"You " + data.results});
+      this.setState({result:result});
+      this.setState({scoreBoard: scoreBoard});
+      this.setState({gameCount: this.state.gameCount + 1})
     })
     .catch(err => console.log("Fetch Error: ", err));
   }
 
   render() {
-    const {listButtons, playerChoice, computerChoice, result} = this.state
+    const {listButtons, playerChoice, computerChoice, result, scoreBoard} = this.state
     return (
       <div className="App">
         <div className="App-header">
@@ -79,6 +84,8 @@ class App extends Component {
         <div id="Computer">{computerChoice}</div>
         <h3 className="titleDisplay">Result</h3>
         <div id="Result">{result}</div>
+        <h3 className="scoreBoard">Score Board</h3>
+        <div id="ScoreBoard">{scoreBoard}</div>
       </div>
     );
   }
