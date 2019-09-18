@@ -34,7 +34,7 @@ class App extends Component {
       //Append the choices to a choices list as well as create the buttons
       for (let i = 0; i < data.length; i++) {
         choicesList.push({"id": data[i]["id"], "name": data[i]["name"]})
-        gameButton.push(<button id={i} onClick={() => this.play(data[i]["id"], data[i]["name"])}>{data[i]["name"]}</button>);
+        gameButton.push(<button className="button" id={i} onClick={() => this.play(data[i]["id"], data[i]["name"])}>{data[i]["name"]}</button>);
      }
      // Update the state for these choices and buttons
      this.setState({choicesList: choicesList})
@@ -51,7 +51,7 @@ class App extends Component {
 
   //Play the game by hitting the play endpoint with the needed data
   play(numberInput, stringInput) {
-    // I choose axios so this application would work in Internet Explorer. 
+    // I choose axios so this application would work in Internet Explorer.
     axios({
       baseURL: port + 'play',
       method: 'POST',
@@ -99,7 +99,7 @@ class App extends Component {
         <div id="Computer">{computerChoice}</div>
         <h3 className="titleDisplay">Result</h3>
         <div id="Result">{result}</div>
-        <button onClick={() => this.resetScoreBoard()}>Reset Score Board</button>
+        <button className="button" onClick={() => this.resetScoreBoard()}>Reset Score Board</button>
         <h3 className="scoreBoard">Score Board</h3>
         <div id="ScoreBoard">{scoreBoard}</div>
       </div>

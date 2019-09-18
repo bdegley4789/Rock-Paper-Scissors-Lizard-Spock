@@ -18,6 +18,30 @@
   font-size: large;
 }
 
+body {
+    font-family: 'Montserrat';font-size: 14px;
+}
+
+.button {
+  background-color: white;
+  border: 2px solid #4CAF50;
+  color: black;
+  padding: 12px 26px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 12px;
+  margin: 4px 2px;
+  -webkit-transition-duration: 0.4s; /* Safari */
+  transition-duration: 0.4s;
+  cursor: pointer;
+}
+
+.button:hover {
+  background-color: #4CAF50;
+  color: white;
+}
+
 @keyframes App-logo-spin {
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
