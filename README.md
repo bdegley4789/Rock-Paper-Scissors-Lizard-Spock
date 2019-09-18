@@ -14,3 +14,5 @@ Play the game from big game theory Rock, Paper, Scissors, Lizard, Spock
 ```cd Rock-Paper-Scissors-Lizard-Spock```  
 ```npm install```  
 ```npm start```  
+
+4. Open http://localhost:3000/ if not already there
