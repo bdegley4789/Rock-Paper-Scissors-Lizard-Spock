@@ -4,6 +4,7 @@ import './App.css';
 import axios from 'axios'
 let port = "http://127.0.0.1:5000/"
 
+// I used this to initialize my react app https://reactjs.org/docs/create-a-new-react-app.html
 class App extends Component {
   constructor(props) {
         super(props);
