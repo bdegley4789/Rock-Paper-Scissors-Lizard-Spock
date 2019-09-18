@@ -4,26 +4,43 @@ import './App.css';
 import axios from 'axios'
 
 class App extends Component {
+  constructor(props) {
+        super(props);
+        this.state = {
+            listButtons: [],
+            playerChoice: "",
+            computerChoice: "",
+            result: "",
+        }
+    }
+
   componentDidMount() {
-     return axios({
-       baseURL: 'http://127.0.0.1:5000/choices',
-       method: 'GET',
-       headers: {
-         'Content-Type': 'application/json; charset-UTF8'
-       }
-     })
-     .then(({ data }) => {
-       console.log(data)
-       return data;
-     })
-     .catch(err => console.log("Fetch Error: ", err));
+    let gameButton = []
+    axios({
+      baseURL: 'http://127.0.0.1:5000/choices',
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json; charset-UTF8'
+      }
+    })
+    .then(({ data }) => {
+      console.log(data)
+      for (let i = 0; i < data.length; i++) {
+        gameButton.push(<button id={i} onClick={() => this.test(data[i]["id"], data[i]["name"])}>{data[i]["name"]}</button>);
+     }
+     console.log(gameButton);
+     this.setState({listButtons:gameButton});
+    })
+    .catch(err => console.log("Fetch Error: ", err));
   }
 
-  test() {
-    console.log("test")
+  test(numberInput, stringInput) {
+    console.log(numberInput);
+    console.log(stringInput);
   }
 
   render() {
+    const {listButtons} = this.state
     return (
       <div className="App">
         <div className="App-header">
@@ -34,7 +51,7 @@ class App extends Component {
           Choose Rock Paper Scissors Lizard or Spock!
         </p>
         <a href="http://www.samkass.com/theories/RPSSL.html">Game Rules</a>
-        <button onClick={() => this.test()}>Click me</button>
+        <div id="Buttons">{listButtons}</div>
       </div>
     );
   }
