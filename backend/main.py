@@ -1,5 +1,6 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import random
+import json
 
 app = Flask(__name__)
 
@@ -11,8 +12,18 @@ def index():
 @app.route("/random")
 def random_number():
     return {
-        "random_number": random.randint(1,101)
+        "random_number": random.randint(1,100)
     }
+
+@app.route("/choices")
+def choices():
+    return json.dumps([
+        {"id":1,"name":"rock"},
+        {"id":2,"name":"paper"},
+        {"id":3,"name":"scissor"},
+        {"id":4,"name":"lizard"},
+        {"id":5,"name":"spock"}
+        ])
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=80)
