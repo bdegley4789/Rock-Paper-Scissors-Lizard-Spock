@@ -18,9 +18,11 @@ class App extends Component {
         }
     }
 
+    //Use componentDidMount to get all the initial data from choices endpoint
   componentDidMount() {
     let gameButton = [];
     let choicesList = [];
+    // I choose axios so this application would work in Internet Explorer.
     axios({
       baseURL: port + 'choices',
       method: 'GET',
@@ -29,22 +31,27 @@ class App extends Component {
       }
     })
     .then(({ data }) => {
+      //Append the choices to a choices list as well as create the buttons
       for (let i = 0; i < data.length; i++) {
         choicesList.push({"id": data[i]["id"], "name": data[i]["name"]})
         gameButton.push(<button id={i} onClick={() => this.play(data[i]["id"], data[i]["name"])}>{data[i]["name"]}</button>);
      }
+     // Update the state for these choices and buttons
      this.setState({choicesList: choicesList})
      this.setState({listButtons:gameButton});
     })
     .catch(err => console.log("Fetch Error: ", err));
   }
 
+  //Reset the score board by simply resetting the scoreboard array and game count
   resetScoreBoard() {
     this.setState({scoreBoard: []});
     this.setState({gameCount: 1});
   }
 
+  //Play the game by hitting the play endpoint with the needed data
   play(numberInput, stringInput) {
+    // I choose axios so this application would work in Internet Explorer. 
     axios({
       baseURL: port + 'play',
       method: 'POST',
@@ -58,10 +65,12 @@ class App extends Component {
     .then(({ data }) => {
       let result = "You " + data.results;
       let scoreBoard = this.state.scoreBoard
+      //Use unshift and pop to make a reversed array
       scoreBoard.unshift(<div className="record">Game {this.state.gameCount}: {result}</div>);
       if (scoreBoard.length > 10) {
         scoreBoard.pop();
       }
+      //Update state for last game as well as scoreboard
       this.setState({playerChoice:stringInput});
       this.setState({computerChoice:this.state.choicesList[data.computer-1]["name"]});
       this.setState({result:result});
