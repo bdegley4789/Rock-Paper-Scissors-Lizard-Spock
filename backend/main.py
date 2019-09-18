@@ -1,9 +1,12 @@
 from flask import Flask, flash, redirect, render_template, request, session, abort
 import random
 import json
+from flask_cors import CORS
+
 
 # I got the basic set up for this flask app here: https://pythonspot.com/flask-web-app-with-python/
 app = Flask(__name__)
+CORS(app)
 options = [
     {"id":1,"name":"rock"},
     {"id":2,"name":"paper"},
